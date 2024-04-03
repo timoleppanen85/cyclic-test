@@ -7,8 +7,6 @@ const userModel = require("./models/user");
 const sessionModel = require("./models/session");
 
 let app = express();
-app.use("/", express.static("public"));
-app.use(express.json());
 
 const mongo_url = process.env.MONGODB_URL;
 const mongo_username = process.env.MONGODB_USERNAME;
@@ -28,6 +26,8 @@ mongoose.connect(url).then(
     (err) => console.log("Failed to connect to MongoDB. Reason: " + err)
 );
 
+app.use("/", express.static("public"));
+app.use(express.json());
 // Helpers and middlewares
 
 const time_to_live_diff = 3600000;
