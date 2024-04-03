@@ -21,13 +21,14 @@ const url =
     mongo_url +
     "/shopping?retryWrites=true&w=majority&appName=MyCluster0";
 
+app.use("/", express.static("public"));
+app.use(express.json());
+
 mongoose.connect(url).then(
     () => console.log("Connected to MongoDB"),
     (err) => console.log("Failed to connect to MongoDB. Reason: " + err)
 );
 
-app.use("/", express.static("public"));
-app.use(express.json());
 // Helpers and middlewares
 
 const time_to_live_diff = 3600000;
@@ -207,6 +208,8 @@ app.post("/logout", function (req, res) {
 
 app.use("/api", isUserLogged, shoppingRoute);
 
-app.listen(3000);
+let port = process.env.PORT || 3000;
 
-console.log("Running in port 3000");
+app.listen(port);
+
+console.log("Running in port", port);
