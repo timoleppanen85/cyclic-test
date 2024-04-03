@@ -7,7 +7,7 @@ const userModel = require("./models/user");
 const sessionModel = require("./models/session");
 
 let app = express();
-
+app.use("/", express.static("public"));
 app.use(express.json());
 
 const mongo_url = process.env.MONGODB_URL;
